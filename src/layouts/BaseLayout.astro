@@ -18,18 +18,18 @@ const { frontmatter, url } = Astro.props;
         <slot />
     </body>
 </html>
+
 <style is:global>
     html {
         background-color: wheat;
         font-family: sans-serif;
     }
 
-    body {
-        max-width: 650px;
-    }
-
     * {
         box-sizing: border-box;
+        text-align: center;
+        margin: auto;
+        max-width: 650px;
     }
 
     h1 {
