@@ -1,0 +1,20 @@
+---
+import type { MarkdownLayoutProps } from 'astro';
+
+type Props = MarkdownLayoutProps<{
+  title: string;
+  author: string;
+  date: string;
+}>;
+
+const { frontmatter, url } = Astro.props;
+---
+<html>
+    <head>
+        <title>niila.fi</title>
+    </head>
+    <body>
+        <h1>moi</h1>
+        <slot />
+    </body>
+</html>
