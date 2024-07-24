@@ -14,10 +14,10 @@ const { frontmatter, url } = Astro.props;
         <title>{frontmatter.title}</title>
     </head>
     <body>
-        <p>Niila Viinamäki</p>
-        <a href="posts">Posts</a>
-        <a href="projects">Projects</a>
-        <a href="about">About</a>
+        <a href="." class="header" style="font-weight: bold;">Niila Viinamäki</a>
+        <a href="posts" class="header" style="text-align: end;">Posts</a>
+        <a href="projects" class="header">Projects</a>
+        <a href="about" class="header">About</a>
         <slot />
     </body>
 </html>
@@ -33,5 +33,9 @@ const { frontmatter, url } = Astro.props;
         box-sizing: border-box;
         margin: auto;
         max-width: 650px;
+    }
+
+    .header {
+        
     }
 </style>
