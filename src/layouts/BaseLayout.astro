@@ -14,14 +14,18 @@ const { frontmatter, url } = Astro.props;
         <title>{frontmatter.title}</title>
     </head>
     <body>
-        <h1>moi</h1>
+        <p>Niila Viinamäki</p>
+        <a href="posts">Posts</a>
+        <a href="projects">Projects</a>
+        <a href="about">About</a>
         <slot />
     </body>
 </html>
 
 <style is:global>
     html {
-        background-color: wheat;
+        background-color: #EEEEEE;
+        color: #111111;
         font-family: sans-serif;
     }
 
@@ -30,9 +34,5 @@ const { frontmatter, url } = Astro.props;
         text-align: center;
         margin: auto;
         max-width: 650px;
-    }
-
-    h1 {
-        color: red;
     }
 </style>
