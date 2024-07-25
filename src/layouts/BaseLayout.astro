@@ -30,9 +30,11 @@ const { frontmatter, url } = Astro.props;
 
 <style is:global>
     html {
-        background-color: #EEEEEE;
+        background-color: white;
         color: #111111;
         font-family: sans-serif;
+        margin: 8px auto;
+        max-width: 95vw;
     }
 
     * {
@@ -80,5 +82,11 @@ const { frontmatter, url } = Astro.props;
 
     hr {
         margin: 8px 0px;
+    }
+
+    h1, h2, h3,
+    h4, h5, h6 {
+        border-bottom: 1px solid #ccc;
+        margin: 16px 0px;
     }
 </style>
