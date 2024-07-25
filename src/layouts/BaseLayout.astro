@@ -35,18 +35,16 @@ const { frontmatter, url } = Astro.props;
 </html>
 
 <style is:global>
-    html {
+    body {
+        font-family: Open Sans, Arial;
+        font-size: 16px;
         background-color: white;
-        color: #111111;
-        font-family: sans-serif;
-        margin: 8px auto;
-        max-width: 95vw;
-    }
-
-    * {
-        box-sizing: border-box;
-        margin: auto;
-        max-width: 650px;
+        color: #454545;
+        padding: 0.5em 1em;
+        margin: 0px auto;
+        max-width: 800px;
+        line-height: 1.4;
+        hyphens: auto;
     }
 
     .header-flex {
