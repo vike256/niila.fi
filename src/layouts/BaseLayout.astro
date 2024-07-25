@@ -15,10 +15,15 @@ const { frontmatter, url } = Astro.props;
         <meta name="viewport" content="width=device-width, initial-scale:1.0">
     </head>
     <body>
-        <a href="." class="header" style="font-weight: bold;">Niila Viinamäki</a>
-        <a href="posts" class="header" style="text-align: end;">Posts</a>
-        <a href="projects" class="header">Projects</a>
-        <a href="about" class="header">About</a>
+        <div class="header">
+            <a href="." id="home">Niila Viinamäki</a>
+            <div class="header-right">
+                <a href="posts" style="text-align: end;">Posts</a>
+                <a href="projects">Projects</a>
+                <a href="about">About</a>
+            </div>
+        </div>
+        <hr>
         <slot />
     </body>
 </html>
@@ -37,6 +42,27 @@ const { frontmatter, url } = Astro.props;
     }
 
     .header {
-        
+        display: flex;
+        height: 32px;
+    }
+
+    .header a {
+        color: inherit;
+        text-decoration: inherit;
+    }
+
+    .header a:hover {
+        color: orangered;
+        text-decoration: underline;
+    }
+
+    .header-right {
+        flex: 1;
+        text-align: end;
+    }
+
+    #home {
+        flex: 1;
+        font-weight: bold;
     }
 </style>
