@@ -29,7 +29,14 @@ const { frontmatter, url } = Astro.props;
         <slot />
         <div class="footer">
             <hr>
-            :)
+            <div class="footer-links">
+                <a href="https://github.com/vike256" target="_blank">GitHub</a>
+                <a href="https://youtube.com/@vike256" target="_blank">YouTube</a>
+                <a href="https://www.linkedin.com/in/niilav/" target="_blank">LinkedIn</a>
+            </div>
+            <div class="footer-bottom">
+                <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a> 2024 © Niila Viinamäki.
+            </div>
         </div>
     </body>
 </html>
@@ -84,11 +91,20 @@ const { frontmatter, url } = Astro.props;
     }
 
     .header {
-        margin-bottom: 16px;
+        margin-bottom: 32px;
     }
 
     .footer {
-        margin-top: 16px;
+        margin-top: 32px;
+    }
+
+    .footer-links {
+        display: flex;
+        column-gap: 16px;
+    }
+
+    .footer-bottom {
+        margin-top: 4em;
     }
 
     hr {
