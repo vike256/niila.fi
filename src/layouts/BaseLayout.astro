@@ -16,15 +16,21 @@ const { frontmatter, url } = Astro.props;
     </head>
     <body>
         <div class="header">
-            <a href="/" id="home">Niila Viinamäki</a>
-            <div class="header-right">
-                <a href="/posts/" style="text-align: end;">Posts</a>
-                <a href="/projects/">Projects</a>
-                <a href="/about/">About</a>
+            <div class="header-flex">
+                <a href="/" id="home">Niila Viinamäki</a>
+                <div class="header-right">
+                    <a href="/posts/" style="text-align: end;">Posts</a>
+                    <a href="/projects/">Projects</a>
+                    <a href="/about/">About</a>
+                </div>
             </div>
+            <hr>
         </div>
-        <hr>
         <slot />
+        <div class="footer">
+            <hr>
+            :)
+        </div>
     </body>
 </html>
 
@@ -43,7 +49,7 @@ const { frontmatter, url } = Astro.props;
         max-width: 650px;
     }
 
-    .header {
+    .header-flex {
         display: flex;
         margin: 8px 0px;
     }
@@ -78,6 +84,14 @@ const { frontmatter, url } = Astro.props;
     #home {
         flex: 1;
         font-weight: bold;
+    }
+
+    .header {
+        margin-bottom: 16px;
+    }
+
+    .footer {
+        margin-top: 16px;
     }
 
     hr {
