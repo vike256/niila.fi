@@ -2,5 +2,16 @@
 layout: ../layouts/BaseLayout.astro
 title: About | Niila Viinamäki
 ---
+import { Image } from 'astro:assets';
+import profile from '/src/images/profile.jpg';
 
 # About
+
+<div class="profile-card">
+    <Image id="profile-img" src={profile} alt="Image of my profile" />  
+    <div class="profile-card-right">
+        GitHub: [vike256](https://github.com/vike256)  
+        YouTube: [vike256](https://youtube.com/@vike256)  
+        LinkedIn: [niilav](https://www.linkedin.com/in/niilav/)
+    </div>
+</div>
