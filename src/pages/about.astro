@@ -1,0 +1,17 @@
+---
+import { propsToFilename } from "astro/assets/utils"
+import BaseLayout from "../layouts/BaseLayout.astro"
+---
+
+<BaseLayout title="About | Niila Viinamäki">
+    <div class="profile-card">
+        <img id="profile-img" src="/src/images/profile.jpg" alt="Image of my profile" />  
+        <div class="profile-card-right">
+            <ul>
+                <li>GitHub: <a href="https://github.com/vike256" target="_blank">vike256</a></li>
+                <li>YouTube: <a href="https://youtube.com/@vike256" target="_blank">vike256</a></li>
+                <li>LinkedIn: <a href="https://www.linkedin.com/in/niilav/" target="_blank">niilav</a></li>
+            </ul>
+        </div>
+    </div>
+</BaseLayout>
