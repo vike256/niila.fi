@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro"
 import PostCard from '../components/PostCard.astro'
 
 const allPosts = await Astro.glob('/src/pages/posts/*.mdx');
+allPosts.sort((a, b) => Date.parse(b.frontmatter.date) - Date.parse(a.frontmatter.date));
 ---
 
 <BaseLayout title="Niila Viinamäki">
@@ -12,6 +13,6 @@ const allPosts = await Astro.glob('/src/pages/posts/*.mdx');
         Check out my latest project: <a href="https://github.com/vike256/Unibot" target="_blank" rel="noopener noreferrer">Unibot</a>.
     </p>
     <h2>Latest post</h2>
-    <PostCard post={allPosts.reverse()[0]} />
+    <PostCard post={allPosts[0]} />
     <p style="margin-top: -0.5em"><a href="/posts/">View all</a></p>
 </BaseLayout>

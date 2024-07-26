@@ -3,10 +3,11 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import PostCard from '../components/PostCard.astro'
 
 const allPosts = await Astro.glob('/src/pages/posts/*.mdx');
+allPosts.sort((a, b) => Date.parse(b.frontmatter.date) - Date.parse(a.frontmatter.date));
 ---
 
 <BaseLayout title="Posts | Niila Viinamäki">
     {
-        allPosts.map((post) => <PostCard {post} />).reverse()
+        allPosts.map((post) => <PostCard {post} />)
     }
 </BaseLayout>

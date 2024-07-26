@@ -1,14 +1,14 @@
 ---
 layout: '/src/layouts/BaseLayout.astro'
 title: 'Building an undetected computer vision aimbot'
-date: '2024-07-26'
+date: '2024-07-28'
 ---
 
 import { Image } from 'astro:assets';
-import ow_img from '/src/images/overwatch-enemy-outline.webp';
-import val_img from '/src/images/valorant-enemy-outline.webp';
-import val_enemy_img from '/src/images/valorant-enemy.png';
-import hsv_img from '/src/images/hsv.png';
+import ow_img from '/src/images/python-colorbot-ow-ss.webp';
+import val_img from '/src/images/python-colorbot-val-ss.webp';
+import val_enemy_img from '/src/images/python-colorbot-enemy.jpg';
+import hsv_img from '/src/images/python-colorbot-hsv.png';
 
 # {frontmatter.title}
 
@@ -35,7 +35,7 @@ Here's some screenshots from two very popular FPS games, Overwatch and VALORANT:
 Notice that the enemies have red outlines? A computer can see those too! Computers are not colorblind (unlike me), so they have an easy time detecting colors from an image.  
 
 Here's an image I'll use to show how to filter colors from an image:  
-<Image src={val_enemy_img} alt="VALORANT enemy" style="width: 15%; height: auto;" />  
+<Image src={val_enemy_img} alt="VALORANT enemy" style="width: 33%; height: auto;" />  
 
 Let's select all yellow pixels in the image. RGB(255, 255, 0)
 
