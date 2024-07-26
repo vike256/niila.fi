@@ -1,6 +1,12 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro"
+import BaseLayout from '../layouts/BaseLayout.astro'
+import PostCard from '../components/PostCard.astro'
+
+const allPosts = await Astro.glob('/src/pages/posts/*.md*');
 ---
 
 <BaseLayout title="Posts | Niila Viinamäki">
+    {
+        allPosts.map((post) => <PostCard {post} />).reverse()
+    }
 </BaseLayout>
