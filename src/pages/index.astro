@@ -9,7 +9,7 @@ const allPosts = await Astro.glob('/src/pages/posts/*.mdx');
     <h2>Me</h2>
     <p>
         I'm a 21yo student from Finland and I like building and breaking stuff. 
-        Check out my latest project: <a href="https://github.com/vike256/Unibot" target="_blank">Unibot</a>.
+        Check out my latest project: <a href="https://github.com/vike256/Unibot" target="_blank" rel="noopener noreferrer">Unibot</a>.
     </p>
     <h2>Latest post</h2>
     <PostCard post={allPosts.reverse()[0]} />

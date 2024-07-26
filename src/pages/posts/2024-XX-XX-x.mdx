@@ -1,0 +1,51 @@
+---
+layout: '/src/layouts/BaseLayout.astro'
+title: 'Building an undetected computer vision aimbot'
+date: '2024-07-26'
+---
+
+import { Image } from 'astro:assets';
+import ow_img from '/src/images/overwatch-enemy-outline.webp';
+import val_img from '/src/images/valorant-enemy-outline.webp';
+import val_enemy_img from '/src/images/valorant-enemy.png';
+import hsv_img from '/src/images/hsv.png';
+
+# {frontmatter.title}
+
+Last year I was reminded of a <a href="https://unknowncheats.me/" target="_blank" rel="noopener noreferrer">forum</a> that discusses game hacking. I was browsing the VALORANT section for a while and came across some posts discussing "arduino cheats" and "colorbots". These were not terms I was familiar with and they peaked my interest.  
+
+I saw videos of cheats that scanned the screen for enemies and moved the aim toward them with an Arduino that could send mouse input.  
+
+Traditional aimbots work by first reading the enemy position from memory and then changing the player's viewangle, which also happens in memory. Reading from memory is much faster than scanning the screen, but it's way harder to do undetected.  
+
+If you want to use an aimbot in VALORANT, you probably wouldn't want to do it through memory. So how do scan the screen for enemies?
+
+<div class="note">
+    <strong>NOTE:</strong>
+    I do not condone cheating in any regard. This project was made as a hobby.
+</div>
+
+## Colorbots
+
+So we're going to use AI to detect enemies, right? No, our solution will be much simpler and easier to understand.  
+
+Here's some screenshots from two very popular FPS games, Overwatch and VALORANT:
+<Image src={ow_img} alt="Overwatch screenshot" />  
+<Image src={val_img} alt="VALORANT screenshot" />  
+Notice that the enemies have red outlines? A computer can see those too! Computers are not colorblind (unlike me), so they have an easy time detecting colors from an image.  
+
+Here's an image I'll use to show how to filter colors from an image:  
+<Image src={val_enemy_img} alt="VALORANT enemy" style="width: 15%; height: auto;" />  
+
+The computer can see colors in many formats such as RGB, HSV and HSL. We'll use HSV which stands for hue, saturation and value.
+
+In HSV we have 3 values that range from 0 to 255.
+
+<Image src={hsv_img} alt="HSV cylinder" /> 
+
+
+
+## Sources 
+<a href="https://www.reddit.com/r/borderlands3/comments/1d09t8m/mods_that_make_enemies_have_colored_outlines_that/" target="_blank" rel="noopener noreferrer">Overwatch screenshot</a>  
+<a href="https://www.reddit.com/r/gaming/comments/jaodwy/chilling_with_the_enemy_team_in_valorant_after/" target="_blank" rel="noopener noreferrer">VALORANT screenshot</a>  
+<a href="https://slurptech.com/make-valorant-vibrant/" target="_blank" rel="noopener noreferrer">VALORANT enemy image</a> 
