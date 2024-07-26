@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import PostCard from '../components/PostCard.astro'
 
-const allPosts = await Astro.glob('/src/pages/posts/*.md*');
+const allPosts = await Astro.glob('/src/pages/posts/*.mdx');
 ---
 
 <BaseLayout title="Posts | Niila Viinamäki">
