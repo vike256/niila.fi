@@ -1,11 +1,12 @@
 ---
-import { propsToFilename } from "astro/assets/utils"
-import BaseLayout from "../layouts/BaseLayout.astro"
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { Image } from 'astro:assets'
+import profileImg from '/src/images/profile.jpg'
 ---
 
 <BaseLayout title="About | Niila Viinamäki">
     <div class="profile-card">
-        <img id="profile-img" src="/src/images/profile.jpg" alt="Image of my profile" />  
+        <Image id="profile-img" src={profileImg} alt="My profile image" />  
         <div class="profile-card-right">
             <ul>
                 <li>GitHub: <a href="https://github.com/vike256" target="_blank">vike256</a></li>
