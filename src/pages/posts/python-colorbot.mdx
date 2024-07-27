@@ -44,7 +44,7 @@ The computer can see colors in many formats such as RGB, HSV and HSL. We'll use 
 
 <Image src={hsv_img} alt="HSV cylinder" /> 
 
-We wont just select the pixels on the image that are pure yellow since, the outlines wont be just of one color value. We need to select a lower and and upper value for our color range that we look for. I wont go into how to find the perfect color range since there isn't one. We'll use one that works. If you want to experiement with finding the best color range look at <a href="https://github.com/vike256/Unibot/wiki/Finding-target-color-range" target="_blank" rel="noopener noreferrer">Unibot's wiki</a>. 
+We wont just select the pixels on the image that are pure yellow since the outlines wont be just of one color value. We need to select a lower and and upper value for our color range that we look for. I wont go into how to find the perfect color range since there isn't one. We'll use one that works. If you want to experiement with finding the best color range look at <a href="https://github.com/vike256/Unibot/wiki/Finding-target-color-range" target="_blank" rel="noopener noreferrer">Unibot's wiki</a>. 
 
 We shouldn't capture the whole screen, because it captures UI elements and other useless stuff. Let's use a small image from the center of our screen:
 <Image src={raze_img} alt="VALORANT raze" />  
@@ -55,7 +55,7 @@ import cv2
 import numpy as np
 
 # Select target image
-img = cv2.imread('fullscreen.jpeg')
+img = cv2.imread('raze.jpeg')
 
 # Convert image to HSV
 hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
