@@ -44,9 +44,23 @@ The computer can see colors in many formats such as RGB, HSV and HSL. We'll use 
 
 <Image src={hsv_img} alt="HSV cylinder" /> 
 
+What our goals are:
+- Capture the screen
+- Scan the image for targets
+- Get the closest target
+- Move our mouse toward the target
+
+## Capture the screen
+
+Capturing the screen is a core part of the program, but it's not necessary to understand how the colorbot works. All you need to know is that we can use a python library like <a href="https://pypi.org/project/mss/" target="_blank" rel="noopener noreferrer">MSS</a> to capture the screen at high framerates. Example <a href="https://github.com/vike256/tutorials/blob/main/colorbot/main.py" target="_blank" rel="noopener noreferrer">here</a>.
+
+## Scan the image for targets
+
 We wont just select the pixels on the image that are pure yellow since the outlines wont be just of one color value. We need to select a lower and and upper value for our color range that we look for. I wont go into how to find the perfect color range since there isn't one. We'll use one that works. If you want to experiement with finding the best color range look at <a href="https://github.com/vike256/Unibot/wiki/Finding-target-color-range" target="_blank" rel="noopener noreferrer">Unibot's wiki</a>. 
 
-We shouldn't capture the whole screen, because it captures UI elements and other useless stuff. Let's use a small image from the center of our screen:
+We shouldn't capture the whole screen, because it would aim at yellow UI elements and other useless stuff. Let's use a small image from the center of our screen. This is usually called the *FOV* of the cheat. The larger the FOV the larger the scanning area and we'll be aiming at enemies further away from the center of our screen. Use a smaller area for the sake of performance, and the fact that our aim is probably good enough to aim somewhere close the target.
+
+Target image for testing:
 <Image src={raze_img} alt="VALORANT raze" />  
 
 Open the target image and convert it to HSV. I will go into how to capture the screen later, but now let's just filter the colors on a static image.
@@ -133,16 +147,6 @@ enemy_box = cv2.circle(
 
 # Save the final image with the boxes and aim position
 cv2.imwrite('raze-box.jpeg', enemy_box)
-
-# Load the original image and the image with boxes
-original_img = cv2.imread('raze.jpeg')
-box_img = cv2.imread('raze-box.jpeg')
-
-# Blend the two images with 50% transparency
-blended_img = cv2.addWeighted(original_img, 0.5, box_img, 0.5, 0)
-
-# Save the final blended image
-cv2.imwrite('raze-overlay.jpeg', blended_img)
 ```
 
 Here's what we have now:
