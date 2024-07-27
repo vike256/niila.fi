@@ -63,7 +63,7 @@ We shouldn't capture the whole screen, because it would aim at yellow UI element
 Target image for testing:
 <Image src={raze_img} alt="VALORANT raze" />  
 
-Open the target image and convert it to HSV. I will go into how to capture the screen later, but now let's just filter the colors on a static image.
+Open the target image and convert it to HSV:
 ```py
 import cv2
 import numpy as np
@@ -155,6 +155,18 @@ Here's what we have now:
 Overlay it on top of the original image and it looks like this:
 <Image src={raze_overlay_img} alt="Overlay with boxes and target aim position" /> 
 
+## Moving the mouse toward the target
+
+This is quite a simple task since we have the position of the enemy on our screen. Now we just have to calculate how much to move our mouse to the left and right and use a command similar to this:
+```py
+mouse.move(aim_x, aim_y)
+```
+
+But in a game with anti-cheat, it's not that simple of a task. 
+
+### Hardware cheats
+
+To send mouse input without a kernel anti-cheat noticing, we'll have to send the input from an external device. We need hardware that can act as a mouse. You can use a single-board microcontroller with HID capabilities like the Arduino Leonardo or any of the Raspberry Pi Pico boards. I'll use the Pico W as an example since it was the board that I made <a href="https://github.com/vike256/RaspberryPiPicoW-Colorbot" target="_blank" rel="noopener noreferrer">my first hardware project</a> with.
 
 ## Sources 
 <a href="https://www.reddit.com/r/borderlands3/comments/1d09t8m/mods_that_make_enemies_have_colored_outlines_that/" target="_blank" rel="noopener noreferrer">Overwatch screenshot</a>  
