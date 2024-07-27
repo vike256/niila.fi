@@ -9,6 +9,11 @@ import ow_img from '/src/images/python-colorbot-ow-ss.webp';
 import val_img from '/src/images/python-colorbot-val-ss.webp';
 import val_enemy_img from '/src/images/python-colorbot-enemy.jpg';
 import hsv_img from '/src/images/python-colorbot-hsv.png';
+import raze_img from '/src/images/python-colorbot-raze.jpeg';
+import raze_mask_img from '/src/images/python-colorbot-raze-mask.jpg';
+import raze_dilated_img from '/src/images/python-colorbot-raze-dilated.jpeg';
+import raze_box_img from '/src/images/python-colorbot-raze-box.jpeg';
+import raze_overlay_img from '/src/images/python-colorbot-raze-overlay.jpeg';
 
 # {frontmatter.title}
 
@@ -18,7 +23,7 @@ I saw videos of cheats that scanned the screen for enemies and moved the aim tow
 
 Traditional aimbots work by first reading the enemy position from memory and then changing the player's viewangle, which also happens in memory. Reading from memory is much faster than scanning the screen, but it's way harder to do undetected.  
 
-If you want to use an aimbot in VALORANT, you probably wouldn't want to do it through memory. So how do scan the screen for enemies?
+If you want to use an aimbot in VALORANT, you probably wouldn't want to do it through memory. So how to scan the screen for enemies?
 
 <div class="note">
     <strong>NOTE:</strong>
@@ -34,17 +39,117 @@ Here's some screenshots from two very popular FPS games, Overwatch and VALORANT:
 <Image src={val_img} alt="VALORANT screenshot" />  
 Notice that the enemies have red outlines? A computer can see those too! Computers are not colorblind (unlike me), so they have an easy time detecting colors from an image.  
 
-Here's an image I'll use to show how to filter colors from an image:  
-<Image src={val_enemy_img} alt="VALORANT enemy" style="width: 33%; height: auto;" />  
-
-Let's select all yellow pixels in the image. RGB(255, 255, 0)
 
 The computer can see colors in many formats such as RGB, HSV and HSL. We'll use HSV which stands for *hue*, *saturation* and *value*.
 
-In HSV we have 3 values that range from 0 to 255.
-
 <Image src={hsv_img} alt="HSV cylinder" /> 
 
+We wont just select the pixels on the image that are pure yellow since, the outlines wont be just of one color value. We need to select a lower and and upper value for our color range that we look for. I wont go into how to find the perfect color range since there isn't one. We'll use one that works. If you want to experiement with finding the best color range look at <a href="https://github.com/vike256/Unibot/wiki/Finding-target-color-range" target="_blank" rel="noopener noreferrer">Unibot's wiki</a>. 
+
+We shouldn't capture the whole screen, because it captures UI elements and other useless stuff. Let's use a small image from the center of our screen:
+<Image src={raze_img} alt="VALORANT raze" />  
+
+Open the target image and convert it to HSV. I will go into how to capture the screen later, but now let's just filter the colors on a static image.
+```py
+import cv2
+import numpy as np
+
+# Select target image
+img = cv2.imread('fullscreen.jpeg')
+
+# Convert image to HSV
+hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+```
+
+Define the color range and create a mask:
+```py
+# Define the color range for masking (in HSV)
+lower_color = np.array([20, 100, 100])
+upper_color = np.array([30, 255, 255])
+
+# Create mask based on color range
+mask = cv2.inRange(hsv_img, lower_color, upper_color)
+cv2.imwrite('raze-mask.jpeg', mask)
+```
+
+Here's what the raze-mask.jpeg looks like:
+<Image src={raze_mask_img} alt="Image mask" />  
+
+We found the right pixels, but we dont want to aim just at the outlines. We want to aim at the center of the target's head.
+
+Dilate the pixels until it's just one shape:
+```py
+# Dilate the mask to expand the white areas and fill gaps
+kernel = np.ones((3, 3), np.uint8)
+dilated = cv2.dilate(mask, kernel, iterations=7)
+cv2.imwrite('raze-dilated.jpeg', dilated)
+
+# Convert the image to binary to make sure every pixel is either black or white
+thresh = cv2.threshold(dilated, 60, 255, cv2.THRESH_BINARY)[1]
+cv2.imwrite('raze-thresh.jpeg', thresh)
+```
+
+Here's the raze-dilated.jpeg:
+<Image src={raze_dilated_img} alt="Mask dilated" />  
+
+The raze-thresh.jpeg doesn't look any different. We just use the threshold function to make sure the image is pure black and white binary.
+
+Find the contours in the image:
+```py
+# Find contours in the thresholded image
+contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+```
+
+We have just one contour in our image, but let's loop through the contours. I'll draw boxes and the target aim position on the image.
+
+```py
+# Initialize the image we want to add boxes to
+enemy_box = cv2.imread('raze-thresh.jpeg')
+
+# Draw a box around every target
+for contour in contours:
+    x, y, w, h = cv2.boundingRect(contour)  # Get the bounding box coordinates
+    enemy_box = cv2.rectangle(
+                enemy_box,
+                (x, y),
+                (x + w, y + h),
+                (0, 0, 255),  # Red color for the rectangle
+                6  # Thickness of the rectangle
+            )
+    # Save a coordinate somewhere above the center of the box
+    contour_center = (
+        x + w // 2,  # Horizontal center
+        int(y + h * 0.2)  # Close to the top of the box
+    )
+
+# Draw the target position for our aim
+enemy_box = cv2.circle(
+    enemy_box,
+    contour_center,
+    3,
+    (0, 255, 0),  # Green color for the circle
+    5
+)
+
+# Save the final image with the boxes and aim position
+cv2.imwrite('raze-box.jpeg', enemy_box)
+
+# Load the original image and the image with boxes
+original_img = cv2.imread('raze.jpeg')
+box_img = cv2.imread('raze-box.jpeg')
+
+# Blend the two images with 50% transparency
+blended_img = cv2.addWeighted(original_img, 0.5, box_img, 0.5, 0)
+
+# Save the final blended image
+cv2.imwrite('raze-overlay.jpeg', blended_img)
+```
+
+Here's what we have now:
+<Image src={raze_box_img} alt="Overlay with boxes and target aim position" /> 
+
+Overlay it on top of the original image and it looks like this:
+<Image src={raze_overlay_img} alt="Overlay with boxes and target aim position" /> 
 
 
 ## Sources 
